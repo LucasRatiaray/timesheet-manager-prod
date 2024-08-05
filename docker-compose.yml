@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    image: dubocq-app
+    container_name: dubocq_app
+    restart: unless-stopped
+    volumes:
+      - ./www:/var/www
+      - ./server/php-local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - dubocq_network
+    ports:
+      - "9000:9000"
+    depends_on:
+      - db
+
+  db:
+    image: postgres
+    container_name: postgres_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - ./database:/var/lib/postgresql/data
+    networks:
+      - dubocq_network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+    networks:
+      - dubocq_network
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./server/default.conf:/etc/nginx/conf.d/default.conf
+      - ./www:/var/www
+    depends_on:
+      - app
+    networks:
+      - dubocq_network
+
+networks:
+  dubocq_network:
+
+volumes:
+  pgdata:
