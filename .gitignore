@@ -1,6 +1,7 @@
-/.idea
-/.vscode
-/.DS_Store
-/.env
+.idea
+.vscode
+.DS_Store
+.env
+www
 
-/database/*
+database/*

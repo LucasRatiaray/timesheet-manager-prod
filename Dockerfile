@@ -21,7 +21,7 @@ RUN apt-get update && apt-get install -y \
 # Installer les extensions PHP
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-configure intl \
-    && docker-php-ext-install pdo pdo_pgsql pgsql gd zip intl
+    && docker-php-ext-install pdo pdo_pgsql pgsql gd zip intl calendar
 
 # Installer Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
