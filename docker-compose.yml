@@ -25,7 +25,7 @@ services:
       POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - ./database:/var/lib/postgresql/data
+      - ./pgdata:/var/lib/postgresql/data
     networks:
       - dubocq_network
 
