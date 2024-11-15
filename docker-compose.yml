@@ -10,7 +10,7 @@ services:
       - ./www:/var/www
       - ./server/php-local.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
-      - srv_network
+      - dubocq_network
     ports:
       - "9000:9000"
     depends_on:
@@ -27,7 +27,7 @@ services:
     volumes:
       - ./pgdata:/var/lib/postgresql/data
     networks:
-      - srv_network
+      - dubocq_network
 
   pgadmin:
     image: dpage/pgadmin4
@@ -41,7 +41,7 @@ services:
     depends_on:
       - db
     networks:
-      - srv_network
+      - dubocq_network
 
   nginx:
     image: nginx:latest
@@ -51,15 +51,14 @@ services:
       - "8080:80"
     volumes:
       - ./server/default.conf:/etc/nginx/conf.d/default.conf
-      #- ./www:/var/www
+      - ./www:/var/www
     depends_on:
       - app
     networks:
-      - srv_network
+      - dubocq_network
 
 networks:
-  srv_network:
-      external: true
+  dubocq_network:
 
 volumes:
   pgdata:
