@@ -27,7 +27,7 @@ services:
     volumes:
       - ./pgdata:/var/lib/postgresql/data
     networks:
-      - dubocq_network
+      - srv_network
 
   pgadmin:
     image: dpage/pgadmin4
@@ -41,7 +41,7 @@ services:
     depends_on:
       - db
     networks:
-      - dubocq_network
+      - srv_network
 
   nginx:
     image: nginx:latest
@@ -55,10 +55,10 @@ services:
     depends_on:
       - app
     networks:
-      - dubocq_network
+      - srv_network
 
 networks:
-  dubocq_network:
+  srv_network:
 
 volumes:
   pgdata:
