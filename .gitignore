@@ -4,4 +4,4 @@
 .env
 www
 
-database/*
+pgdata/
