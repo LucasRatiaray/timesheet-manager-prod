@@ -5,3 +5,6 @@
 www
 
 pgdata/
+
+backup_postgres.sh
+backups/
