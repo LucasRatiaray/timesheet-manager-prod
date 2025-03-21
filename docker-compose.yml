@@ -3,8 +3,8 @@ version: '3.8'
 services:
   app:
     build: .
-    image: dubocq-app
-    container_name: dubocq_app
+    image: timesheet-manager
+    container_name: timesheet-manager
     restart: unless-stopped
     volumes:
       - ./www:/var/www
@@ -15,19 +15,18 @@ services:
       - "9000:9000"
     depends_on:
       - db
-
   db:
-    image: postgres
-    container_name: postgres_db
-    restart: unless-stopped
-    environment:
-      POSTGRES_DB: ${DB_DATABASE}
-      POSTGRES_USER: ${DB_USERNAME}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-    volumes:
-      - ./pgdata:/var/lib/postgresql/data
-    networks:
-      - dubocq_network
+      image: postgres
+      container_name: postgres_db
+      restart: unless-stopped
+      environment:
+        POSTGRES_DB: timesheet-manager
+        POSTGRES_USER: root
+        POSTGRES_PASSWORD: secretpass
+      volumes:
+        - ./pgdata:/var/lib/postgresql/data
+      networks:
+        - dubocq_network
 
   pgadmin:
     image: dpage/pgadmin4
