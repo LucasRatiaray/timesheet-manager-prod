@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   app:
-    build: .
+    #build: .
     image: timesheet-manager
     container_name: timesheet-manager
     restart: unless-stopped
